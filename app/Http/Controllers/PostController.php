@@ -25,13 +25,14 @@ class PostController extends Controller
             return view('posts.index', compact('posts'));
 
         } catch (RuntimeException $e) {
-
             Log::error($e->getMessage());
 
-            return back()->with(
-                'error',
-                'Unable to fetch posts from external API.'
-            );
+            // Pass an empty collection so the view doesn't crash, 
+            // and show the error message without redirecting loops!
+            $posts = collect(); 
+
+            return view('posts.index', compact('posts'))
+                ->with('error', 'Unable to fetch posts from external API.');
         }
     }
 

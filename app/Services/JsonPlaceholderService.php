@@ -15,6 +15,7 @@ class JsonPlaceholderService
         $this->client = new Client([
             'base_uri' => config('services.jsonplaceholder.base_url'),
             'timeout' => 10,
+            'verify' => false, // <-- Add this line to bypass SSL verification locally
             'headers' => [
                 'Accept' => 'application/json',
             ],
